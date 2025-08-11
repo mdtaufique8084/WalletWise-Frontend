@@ -7,6 +7,8 @@ import axiosConfig from '../util/axiosConfig';
 import { API_ENDPOINTS } from '../util/apiEndPoints';
 import toast from 'react-hot-toast';
 import { LoaderCircle } from 'lucide-react';
+import ProfilePhotoSelector from '../components/profilePhotoSelector';
+import { uploadProfileImage } from '../util/uploadProfileImage';
 
 const Signup = () => {
     const [fullName, setFullName] = useState("");
@@ -14,6 +16,7 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [profilePhoto, setProfilePhoto] = useState(null);
     const navigate = useNavigate();
 
     const resetForm = () => {
@@ -25,7 +28,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
+        let profileImageUrl="";
         if (!fullName.trim()) {
             setError("Please enter your full name");
             setIsLoading(false);
@@ -44,10 +47,16 @@ const Signup = () => {
         setError(null);
 
         try {
+            // Upload profile image if selected
+            if(profilePhoto){
+                const imageUrl = await uploadProfileImage(profilePhoto);
+                profileImageUrl = imageUrl || "";
+            }
             const response = await axiosConfig.post(API_ENDPOINTS.REGISTER, {
                 fullName,
                 email,
-                password
+                password,
+                profileImageUrl
             });
             if (response.status === 201) {
                 toast.success("Profile Created Successfully");
@@ -82,6 +91,7 @@ const Signup = () => {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="flex justify-center mb-6">
                             {/* Profile image placeholder */}
+                            <ProfilePhotoSelector image={profilePhoto} setImage={setProfilePhoto} />
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
                             <Input

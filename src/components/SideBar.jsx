@@ -13,7 +13,7 @@ const SideBar = () => {
       {/* Top Section */}
       <div>
         {/* Profile Section */}
-        <div className="flex flex-col items-center py-6 border-b border-gray-100">
+        {/* <div className="flex flex-col items-center py-6 border-b border-gray-100">
           {user?.profileImageUrl ? (
             <img
               src={user.profileImageUrl}
@@ -28,7 +28,7 @@ const SideBar = () => {
           <h2 className="mt-3 font-semibold text-gray-800 text-lg">
             {user?.name || "Guest User"}
           </h2>
-        </div>
+        </div> */}
 
         {/* Navigation Menu */}
         <nav className="mt-6 px-3">

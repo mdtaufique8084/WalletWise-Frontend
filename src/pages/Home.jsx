@@ -1,7 +1,9 @@
 import React from 'react'
 import Dashboard from '../components/Dashboard';
+import UserHook from '../hooks/userHook';
 
 const Home = () => {
+  UserHook();
   return (
     <div>
       <Dashboard >

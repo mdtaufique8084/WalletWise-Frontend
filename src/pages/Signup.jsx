@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { assets } from '../assets/assets';
-import Input from '../components/Input';
-import { validateEmail } from '../util/validation';
-import axiosConfig from '../util/axiosConfig';
-import { API_ENDPOINTS } from '../util/apiEndPoints';
-import toast from 'react-hot-toast';
-import { LoaderCircle } from 'lucide-react';
-import ProfilePhotoSelector from '../components/profilePhotoSelector';
-import { uploadProfileImage } from '../util/uploadProfileImage';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { assets } from "../assets/assets";
+import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndPoints";
+import toast from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
+import ProfilePhotoSelector from "../components/profilePhotoSelector";
+import { uploadProfileImage } from "../util/uploadProfileImage";
 
 const Signup = () => {
     const [fullName, setFullName] = useState("");
@@ -28,7 +28,8 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        let profileImageUrl="";
+        let profileImageUrl = "";
+
         if (!fullName.trim()) {
             setError("Please enter your full name");
             setIsLoading(false);
@@ -47,26 +48,29 @@ const Signup = () => {
         setError(null);
 
         try {
-            // Upload profile image if selected
-            if(profilePhoto){
+            // ✅ Upload profile image if selected
+            if (profilePhoto) {
                 const imageUrl = await uploadProfileImage(profilePhoto);
                 profileImageUrl = imageUrl || "";
             }
+
             const response = await axiosConfig.post(API_ENDPOINTS.REGISTER, {
                 fullName,
                 email,
                 password,
                 profileImageUrl
             });
+
             if (response.status === 201) {
                 toast.success("Profile Created Successfully");
                 resetForm();
                 navigate("/login");
             }
         } catch (err) {
-            console.error('Something went wrong', err);
-            toast.error(err.response?.data?.message || "Signup failed. Please try again.");
-            setError(err.response?.data?.message);
+            console.error("Something went wrong", err);
+            const errMsg = err.response?.data?.message || "Signup failed. Please try again.";
+            toast.error(errMsg);
+            setError(errMsg);
         } finally {
             setIsLoading(false);
         }
@@ -80,6 +84,7 @@ const Signup = () => {
                 alt="Background"
                 className="absolute inset-0 w-full h-full object-cover filter blur-sm"
             />
+
             <div className="relative z-10 w-full max-w-lg px-6">
                 <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-lg shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
                     <h3 className="text-2xl font-semibold text-black text-center mb-2">
@@ -88,39 +93,45 @@ const Signup = () => {
                     <p className="text-sm text-slate-700 text-center mb-8">
                         Start tracking your spendings by joining with us.
                     </p>
+
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Profile Image Selector */}
                         <div className="flex justify-center mb-6">
-                            {/* Profile image placeholder */}
                             <ProfilePhotoSelector image={profilePhoto} setImage={setProfilePhoto} />
                         </div>
+
                         <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
                             <Input
                                 value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
+                                onChange={(val) => setFullName(val)} 
                                 label="Full Name"
                                 placeholder="Full Name"
+                                type="text"
                             />
                             <Input
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(val) => setEmail(val)} 
                                 label="Email"
                                 placeholder="Email"
+                                type="text"
                             />
                             <div className="col-span-2">
                                 <Input
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(val) => setPassword(val)} 
                                     label="Password"
                                     placeholder="Password"
                                     type="password"
                                 />
                             </div>
                         </div>
+
                         {error && (
                             <p className="text-red-800 text-sm text-center bg-red-50 p-2 rounded">
                                 {error}
                             </p>
                         )}
+
                         <button
                             disabled={isLoading}
                             type="submit"

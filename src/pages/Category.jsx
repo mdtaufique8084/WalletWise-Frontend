@@ -6,6 +6,8 @@ import CategoryList from "../components/CategoryLIst";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndPoints";
 import toast from "react-hot-toast";
+import Model from "../components/Model";
+import AddCategoryForm from "../components/AddCategoryForm";
 
 const Category = () => {
   UserHook();
@@ -59,9 +61,35 @@ const Category = () => {
     fetchCategories();
   }, []);
 
+  const handleAddCategory = async (category) => {
+    const { name, type, icon } = category
+    if (!name.trim()) {
+      toast.error("Please enter a category name");
+      return;
+    }
+    // TODO: Add API call to create category
+    try
+    {
+      const response = await axiosConfig.post(API_ENDPOINTS.ADD_CATEGORY, {
+        name,
+        type,
+        icon
+      });
+      if (response.status === 201) {
+        toast.success("Category added successfully");
+        setAddOpenCategoryModel(false);
+        fetchCategories();
+      }
+    } 
+    catch (error) {
+      console.error("Error adding category:", error);
+      toast.error(error.response?.data?.message || "Failed to add category");
+    }
+  }
+
   return (
     <Dashboard>
-      <div className="my-8 mx-auto max-w-6xl px-4">
+      <div className="my-8 mx-auto max-w-6xl px-4 overflow-hidden">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-gray-800 tracking-tight">
@@ -86,6 +114,13 @@ const Category = () => {
         </div>
 
         {/* TODO: Add modals */}
+        <Model
+          isOpen={openAddCategoryModel}
+          onClose={() => setAddOpenCategoryModel(false)}
+          title="Add Category"
+        >
+          <AddCategoryForm onAddCategory={handleAddCategory} />
+        </Model>
       </div>
     </Dashboard>
   );

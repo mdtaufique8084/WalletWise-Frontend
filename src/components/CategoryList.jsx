@@ -37,17 +37,22 @@ const CategoryList = ({ categories, onEditCategories, onDeleteCategories }) => {
                                 {category.name}
                             </span>
 
+                            {/* Category Type */}
+                            <span className="text-sm text-gray-400">
+                                {category.type}
+                            </span>
+
                             {/* Action Buttons */}
-                            <div className="flex items-center gap-3 mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <div className="flex items-center gap-3 mt-4">
                                 <button
                                     onClick={() => onEditCategories(category)}
-                                    className="flex items-center gap-1 px-3 py-1 text-sm rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition"
+                                    className="flex items-center gap-1 px-3 py-1 text-sm rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition cursor-pointer"
                                 >
                                     <Edit3 size={14} /> Edit
                                 </button>
                                 <button
                                     onClick={() => onDeleteCategories(category.id)}
-                                    className="flex items-center gap-1 px-3 py-1 text-sm rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
+                                    className="flex items-center gap-1 px-3 py-1 text-sm rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition cursor-pointer"
                                 >
                                     <Trash2 size={14} /> Delete
                                 </button>

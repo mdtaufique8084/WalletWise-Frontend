@@ -1,11 +1,9 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
-const Input = ({ label, value, onChange, placeholder, type }) => {
+const Input = ({ label, value, onChange, placeholder, type, isSelect, options }) => {
     const [showPassword, setShowPassword] = useState(false);
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
+    const toggleShowPassword = () => setShowPassword(!showPassword);
 
     return (
         <div className="mb-4">
@@ -13,14 +11,28 @@ const Input = ({ label, value, onChange, placeholder, type }) => {
                 {label}
             </label>
             <div className="relative">
-                <input
-                    className="w-full bg-transparent outline-none border border-gray-300 rounded-md py-2 px-3 pr-10 text-gray-700 leading-tight focus:border-blue-500"
-                    type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
-                    placeholder={placeholder}
-                    value={value}
-                    onChange={(e) => onChange(e)}
-                />
-                {type === 'password' && (
+                {isSelect ? (
+                    <select
+                        className="w-full bg-transparent outline-none border border-gray-300 rounded-md py-2 px-3 pr-10 text-gray-700 leading-tight focus:border-blue-500"
+                        value={value ?? ""}
+                        onChange={(e) => onChange(e.target.value)}
+                    >
+                        {options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                ) : (
+                    <input
+                        className="w-full bg-transparent outline-none border border-gray-300 rounded-md py-2 px-3 pr-10 text-gray-700 leading-tight focus:border-blue-500"
+                        type={type === "password" ? (showPassword ? "text" : "password") : type}
+                        placeholder={placeholder}
+                        value={value ?? ""}
+                        onChange={(e) => onChange(e.target.value)}
+                    />
+                )}
+                {type === "password" && (
                     <span
                         className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                         onClick={toggleShowPassword}

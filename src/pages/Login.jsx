@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
-import Input from '../components/Input';
+import Input from "../components/Input";
 import { validateEmail } from "../util/validation";
 import { AppContext } from "../context/AppContext";
 import axiosConfig from "../util/axiosConfig";
@@ -90,13 +90,14 @@ const Login = () => {
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <Input
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(val) => setEmail(val)} 
                             label="Email"
                             placeholder="Enter your email"
+                            type="text"
                         />
                         <Input
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(val) => setPassword(val)} 
                             label="Password"
                             placeholder="Enter your password"
                             type="password"

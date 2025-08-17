@@ -6,5 +6,7 @@ export const API_ENDPOINTS={
     GET_USER_PROFILE:`/profile/user`,
     UPLOAD_IMAGE:`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
     GET_ALL_CATEGORIES:`/category/allCategories`,
+    UPDATE_CATEGORY:(categoryId) => `/category/updateCategory/${categoryId}`,
+    DELETE_CATEGORY:(categoryId) => `/category/deleteCategory/${categoryId}`,
     ADD_CATEGORY:`/category/addCategory`
 }

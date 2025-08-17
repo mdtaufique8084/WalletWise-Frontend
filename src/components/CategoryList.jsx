@@ -17,30 +17,33 @@ const CategoryList = ({ categories, onEditCategories, onDeleteCategories }) => {
                     {categories.map((category) => (
                         <div
                             key={category.id}
-                            className="group flex flex-col items-center text-center p-5 rounded-lg border border-gray-100 shadow-sm bg-white hover:shadow-md hover:border-indigo-200 transition-all duration-200"
+                            className="group flex flex-col p-5 rounded-lg border border-gray-100 shadow-sm bg-white hover:shadow-md hover:border-indigo-200 transition-all duration-200"
                         >
-                            {/* Icon / Emoji */}
-                            <div className="w-14 h-14 flex justify-center items-center text-xl text-gray-800 bg-gray-100 rounded-full mb-3">
-                                {category.icon ? (
-                                    <img
-                                        src={category.icon}
-                                        alt={category.name}
-                                        className="w-6 h-6"
-                                    />
-                                ) : (
-                                    <Layers2 className="text-purple-800" size={22} />
-                                )}
+                            {/* Icon + Title/Subtitle in one row */}
+                            <div className="flex items-center gap-4 w-full">
+                                {/* Icon / Emoji */}
+                                <div className="w-12 h-12 flex justify-center items-center text-xl text-gray-800 bg-gray-100 rounded-full">
+                                    {category.icon ? (
+                                        <img
+                                            src={category.icon}
+                                            alt={category.name}
+                                            className="w-6 h-6"
+                                        />
+                                    ) : (
+                                        <Layers2 className="text-purple-800" size={22} />
+                                    )}
+                                </div>
+
+                                {/* Title + Subtitle */}
+                                <div className="flex flex-col text-left">
+                                    <span className="font-medium text-gray-700">
+                                        {category.name}
+                                    </span>
+                                    <span className="text-sm text-gray-400 capitalize">
+                                        {category.type}
+                                    </span>
+                                </div>
                             </div>
-
-                            {/* Category Name */}
-                            <span className="font-medium text-gray-700 truncate">
-                                {category.name}
-                            </span>
-
-                            {/* Category Type */}
-                            <span className="text-sm text-gray-400">
-                                {category.type}
-                            </span>
 
                             {/* Action Buttons */}
                             <div className="flex items-center gap-3 mt-4">

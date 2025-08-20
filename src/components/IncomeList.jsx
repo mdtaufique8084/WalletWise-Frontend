@@ -33,7 +33,7 @@ const IncomeList = ({ transactions, onDelete }) => {
               amount={transaction.amount}
               type="income"
               hideDeleteBtn={false}
-              onClick={() => onDelete(transaction.id)}
+              onDelete={() => onDelete(transaction.id)}
             />
           ))}
         </div>

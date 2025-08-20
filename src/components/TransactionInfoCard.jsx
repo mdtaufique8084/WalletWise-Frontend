@@ -41,7 +41,7 @@ const TransactionInfoCard = ({
             {!hideDeleteBtn && (
                 <button
                     onClick={onDelete}
-                    className="opacity-60 group-hover:opacity-100 transition text-gray-400 hover:text-red-500 cursor-pointer"
+                    className="opacity-60 group-hover:opacity-100 transition text-gray-400 hover:text-purple-500 cursor-pointer"
                 >
                     <Edit2 size={20} />
                 </button>

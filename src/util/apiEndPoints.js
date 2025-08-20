@@ -9,5 +9,7 @@ export const API_ENDPOINTS={
     UPDATE_CATEGORY:(categoryId) => `/category/updateCategory/${categoryId}`,
     DELETE_CATEGORY:(categoryId) => `/category/deleteCategory/${categoryId}`,
     GET_INCOME_DETAILS:`/income/all`,
+    GET_CATEGORY_BY_TYPE:(type) => `/category/getCategoryByType/${type}`,
+    ADD_INCOME:`/income/addIncome`,
     ADD_CATEGORY:`/category/addCategory`
 }

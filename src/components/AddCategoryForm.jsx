@@ -77,8 +77,8 @@ const AddCategoryForm = ({ onAddCategory, initialCategoryData, isEditing }) => {
                     type="button"
                     disabled={loading}
                     className={`px-4 py-2 rounded-lg bg-indigo-600 text-white 
-        hover:bg-indigo-700 transition font-medium shadow-sm 
-        flex items-center justify-center gap-2 min-w-[140px]`}
+                               hover:bg-indigo-700 transition font-medium shadow-sm 
+                                flex items-center justify-center gap-2 min-w-[140px]`}
                 >
                     {loading ? (
                         <>

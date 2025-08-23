@@ -8,6 +8,7 @@ import IncomeList from "../components/IncomeList";
 import Model from "../components/Model";
 import AddIncomeForm from "../components/AddIncomeForm";
 import DeleteAlert from "../components/DeleteAlert";
+import IncomeOverView from "../components/IncomeOverView";
 
 const Income = () => {
   UserHook();
@@ -176,6 +177,8 @@ const Income = () => {
             + Add Income
           </button>
         </div>
+
+        <IncomeOverView transactions={incomeData} />
 
         {/* Content */}
         <div className="bg-white shadow rounded-2xl p-6 border border-gray-100">

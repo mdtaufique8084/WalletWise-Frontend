@@ -2,7 +2,7 @@ import { Download, Mail } from "lucide-react";
 import TransactionInfoCard from "./TransactionInfoCard";
 import moment from "moment";
 
-const IncomeList = ({ transactions, onDelete }) => {
+const IncomeList = ({ transactions, onDelete,onEditIncome }) => {
   return (
     <div className="bg-white shadow rounded-2xl p-6 border border-gray-100">
       {/* Header */}
@@ -33,6 +33,7 @@ const IncomeList = ({ transactions, onDelete }) => {
               amount={transaction.amount}
               type="income"
               hideDeleteBtn={false}
+              onEdit={() => onEditIncome(transaction)}
               onDelete={() => onDelete(transaction.id)}
             />
           ))}

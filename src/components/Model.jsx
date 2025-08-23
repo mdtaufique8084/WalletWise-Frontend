@@ -21,7 +21,7 @@ const Model = ({ isOpen, onClose, children, title }) => {
                     </div>
 
                     {/* Body */}
-                    <div className="p-6 overflow-y-auto max-h-[65vh]">
+                    <div className="p-6 overflow-y-auto max-h-[75vh]">
                         {children}
                     </div>
 

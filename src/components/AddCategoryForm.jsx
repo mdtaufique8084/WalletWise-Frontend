@@ -19,8 +19,7 @@ const AddCategoryForm = ({ onAddCategory, initialCategoryData, isEditing }) => {
     useEffect(() => {
         if (isEditing && initialCategoryData) {
             setCategory(initialCategoryData);
-        }
-        else {
+        } else {
             setCategory({
                 name: "",
                 type: "income",
@@ -34,15 +33,17 @@ const AddCategoryForm = ({ onAddCategory, initialCategoryData, isEditing }) => {
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         setLoading(true);
         try {
-            e.preventDefault();
             await onAddCategory(category);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
     };
+
+    //  Check if all fields are filled
+    const isFormValid = category.name.trim() !== "" && category.type.trim() !== "" && category.icon.trim() !== "";
 
     return (
         <div className="p-4">
@@ -75,10 +76,12 @@ const AddCategoryForm = ({ onAddCategory, initialCategoryData, isEditing }) => {
                 <button
                     onClick={handleSubmit}
                     type="button"
-                    disabled={loading}
-                    className={`px-4 py-2 rounded-lg bg-indigo-600 text-white 
-                               hover:bg-indigo-700 transition font-medium shadow-sm 
-                                flex items-center justify-center gap-2 min-w-[140px]`}
+                    disabled={loading || !isFormValid} //  disable if form is invalid
+                    className={`px-4 py-2 rounded-lg text-white 
+                        flex items-center justify-center gap-2 min-w-[140px] 
+                        ${loading || !isFormValid
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow-sm"}`}
                 >
                     {loading ? (
                         <>

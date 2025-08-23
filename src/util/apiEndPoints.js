@@ -11,5 +11,7 @@ export const API_ENDPOINTS={
     GET_INCOME_DETAILS:`/income/all`,
     GET_CATEGORY_BY_TYPE:(type) => `/category/getCategoryByType/${type}`,
     ADD_INCOME:`/income/addIncome`,
+    DELETE_INCOME:(id)=>`/income/deleteIncome/${id}`,
+    UPDATE_INCOME:(id)=>`/income/updateIncome/${id}`,
     ADD_CATEGORY:`/category/addCategory`
 }

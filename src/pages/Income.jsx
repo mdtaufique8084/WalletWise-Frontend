@@ -9,6 +9,7 @@ import Model from "../components/Model";
 import AddIncomeForm from "../components/AddIncomeForm";
 import DeleteAlert from "../components/DeleteAlert";
 import IncomeOverView from "../components/IncomeOverView";
+import moment from "moment";
 
 const Income = () => {
   UserHook();
@@ -159,6 +160,54 @@ const Income = () => {
     }
   };
 
+  // Email and download logic
+
+  const handleDownloadIncomeDetails = async (onlyCurrentMonth = true) => {
+    try {
+      let url = API_ENDPOINTS.INCOME_DOWNLOAD;
+
+      if (onlyCurrentMonth) {
+        const month = moment().month() + 1; // moment month is 0-based
+        const year = moment().year();
+        url += `?month=${month}&year=${year}`;
+      }
+
+      const response = await axiosConfig.get(url, {
+        responseType: "blob", // important for file download
+      });
+
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+
+      const fileName = onlyCurrentMonth
+        ? `incomes_${moment().format("MMMM_YYYY")}.xlsx`
+        : "incomes_all.xlsx";
+
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+
+      // cleanup
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+
+      toast.success(`Income Excel downloaded successfully`);
+    } catch (error) {
+      console.error("Error downloading income excel:", error);
+      toast.error("Failed to download income details");
+    }
+  };
+
+
+  const handleEmailIncomeDetails = () => {
+    console.log("Email income details");
+  }
+
   useEffect(() => {
     fetchIncomeDetails();
     fetchIncomeCategories();
@@ -191,6 +240,8 @@ const Income = () => {
               transactions={incomeData}
               onEditIncome={handleEditIncome}
               onDelete={(id) => setOpenDeleteAlert({ show: true, data: id })}
+              onDownload={handleDownloadIncomeDetails}
+              onEmail={handleEmailIncomeDetails}
             />
           ) : (
             <div className="text-center py-12">
@@ -223,7 +274,7 @@ const Income = () => {
           <AddIncomeForm
             categories={categories}
             onAddIncome={(income) => handleUpdateIncome(income)}
-            initialData={selectIncome} 
+            initialData={selectIncome}
             isEditing={true}
           />
         </Model>

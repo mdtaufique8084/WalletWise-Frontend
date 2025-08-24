@@ -13,5 +13,6 @@ export const API_ENDPOINTS={
     ADD_INCOME:`/income/addIncome`,
     DELETE_INCOME:(id)=>`/income/deleteIncome/${id}`,
     UPDATE_INCOME:(id)=>`/income/updateIncome/${id}`,
+    INCOME_DOWNLOAD:`excel/incomes`,
     ADD_CATEGORY:`/category/addCategory`
 }

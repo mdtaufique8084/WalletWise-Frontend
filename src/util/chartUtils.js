@@ -1,27 +1,32 @@
 // utils/chartUtils.js
-
-/**
- * Prepare line chart data for incomes
- * @param {Array} transactions - Array of income objects
- * Each income: { id, name, amount, date, icon, categoryId }
- * @returns {Array} e.g. [{ date: "20 Aug", income: 200 }]
- */
-// util/chartUtils.js
 export const prepareIncomeLineChartData = (transactions) => {
   if (!transactions || transactions.length === 0) return [];
 
-  // Sort by date (ascending)
-  const sorted = [...transactions].sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
-  );
-
-  // Map into chart-friendly format
-  return sorted.map((t) => ({
-    date: new Date(t.date).toLocaleDateString("en-IN", {
+  // Group transactions by formatted date
+  const grouped = {};
+  transactions.forEach((t) => {
+    const formattedDate = new Date(t.date).toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "short",
-    }),
-    income: t.amount,
-    name: t.name, 
-  }));
+    });
+
+    if (!grouped[formattedDate]) {
+      grouped[formattedDate] = {
+        date: formattedDate,
+        income: 0,
+        sources: [],
+      };
+    }
+
+    grouped[formattedDate].income += t.amount;
+    grouped[formattedDate].sources.push({
+      name: t.name,
+      amount: t.amount,
+    });
+  });
+
+  // Return sorted array by date
+  return Object.values(grouped).sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 };

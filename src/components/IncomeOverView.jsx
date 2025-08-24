@@ -8,22 +8,39 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import moment from "moment";
 import { prepareIncomeLineChartData } from "../util/chartUtils";
 
 const IncomeOverView = ({ transactions }) => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    setChartData(prepareIncomeLineChartData(transactions));
+    if (!transactions || transactions.length === 0) {
+      setChartData([]);
+      return;
+    }
+
+    //  Filter current month transactions
+    const currentMonth = moment().month();
+    const currentYear = moment().year();
+
+    const filtered = transactions.filter((t) => {
+      const d = moment(t.date);
+      return d.month() === currentMonth && d.year() === currentYear;
+    });
+
+    setChartData(prepareIncomeLineChartData(filtered));
   }, [transactions]);
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 mb-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Income Trends</h2>
+        <h2 className="text-lg font-semibold text-gray-800">
+          Income Trends ({moment().format("MMMM YYYY")})
+        </h2>
         <p className="text-xs text-gray-500">
-          Track your earnings and growth over time
+          Track your earnings and growth this month
         </p>
       </div>
 
@@ -44,6 +61,7 @@ const IncomeOverView = ({ transactions }) => {
               <CartesianGrid strokeDasharray="3 3" stroke="#f3f3f3" />
               <XAxis dataKey="date" stroke="#6B7280" fontSize={12} />
               <YAxis stroke="#6B7280" fontSize={12} />
+
               {/* Custom Tooltip */}
               <Tooltip
                 content={({ active, payload, label }) => {
@@ -52,18 +70,21 @@ const IncomeOverView = ({ transactions }) => {
                     return (
                       <div className="bg-white p-3 rounded-lg shadow-md border border-gray-200">
                         <p className="text-sm text-gray-500">{label}</p>
-                        <p className="font-semibold text-green-600">
-                          ₹{item.income}
+                        <p className="font-semibold text-green-600 mb-2">
+                          Total: ₹{item.income}
                         </p>
-                        <p className="text-xs text-gray-400">
-                          Source: {item.name}
-                        </p>
+                        {item.sources?.map((s, i) => (
+                          <p key={i} className="text-xs text-gray-600">
+                            {s.name}: ₹{s.amount}
+                          </p>
+                        ))}
                       </div>
                     );
                   }
                   return null;
                 }}
               />
+
               <Area
                 type="monotone"
                 dataKey="income"

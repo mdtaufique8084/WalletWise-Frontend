@@ -1,5 +1,5 @@
 // utils/chartUtils.js
-export const prepareIncomeLineChartData = (transactions) => {
+export const prepareTransactionLineChartData = (transactions) => {
   if (!transactions || transactions.length === 0) return [];
 
   // Group transactions by formatted date

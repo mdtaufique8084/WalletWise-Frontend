@@ -9,9 +9,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import moment from "moment";
-import { prepareTransactionLineChartData } from "../util/chartUtils";
+import {prepareTransactionLineChartData } from "../util/chartUtils";
 
-const IncomeOverView = ({ transactions }) => {
+const ExpenseOverView = ({ transactions }) => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -37,10 +37,10 @@ const IncomeOverView = ({ transactions }) => {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-gray-800">
-          Income Trends ({moment().format("MMMM YYYY")})
+          Expense Trends ({moment().format("MMMM YYYY")})
         </h2>
         <p className="text-xs text-gray-500">
-          Track your earnings and growth this month
+          Track your expenditure and expense this month
         </p>
       </div>
 
@@ -98,11 +98,11 @@ const IncomeOverView = ({ transactions }) => {
         </div>
       ) : (
         <div className="flex justify-center items-center h-72 text-gray-400">
-          No income data to display
+          No expense data to display
         </div>
       )}
     </div>
   );
 };
 
-export default IncomeOverView;
+export default ExpenseOverView;

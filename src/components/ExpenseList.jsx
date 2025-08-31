@@ -3,7 +3,7 @@ import TransactionInfoCard from "./TransactionInfoCard";
 import moment from "moment";
 import { useState } from "react";
 
-const IncomeList = ({ transactions, onDelete, onEditIncome, onDownload, onEmail }) => {
+const ExpenseList = ({ transactions, onDelete, onEditExpense, onDownload, onEmail }) => {
   const [loadingDownload, setLoadingDownload] = useState(false);
   const [loadingEmail, setLoadingEmail] = useState(false);
 
@@ -38,7 +38,7 @@ const IncomeList = ({ transactions, onDelete, onEditIncome, onDownload, onEmail 
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <h5 className="text-xl font-semibold text-gray-800">
-          Income Sources ({moment().format("MMMM YYYY")})
+          Expense Sources ({moment().format("MMMM YYYY")})
         </h5>
 
         <div className="flex items-center gap-2">
@@ -96,9 +96,9 @@ const IncomeList = ({ transactions, onDelete, onEditIncome, onDownload, onEmail 
               name={transaction.name}
               date={moment(transaction.date).format("Do MMM YYYY")}
               amount={transaction.amount}
-              type="income"
+              type="expense"
               hideDeleteBtn={false}
-              onEdit={() => onEditIncome(transaction)}
+              onEdit={() => onEditExpense(transaction)}
               onDelete={() => onDelete(transaction.id)}
             />
           ))}
@@ -106,7 +106,7 @@ const IncomeList = ({ transactions, onDelete, onEditIncome, onDownload, onEmail 
       ) : (
         <div className="text-center py-12">
           <p className="text-gray-500">
-            No income records available for this month.
+            No expense records available for this month.
           </p>
         </div>
       )}
@@ -114,4 +114,4 @@ const IncomeList = ({ transactions, onDelete, onEditIncome, onDownload, onEmail 
   );
 };
 
-export default IncomeList;
+export default ExpenseList;

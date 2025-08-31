@@ -204,9 +204,24 @@ const Income = () => {
   };
 
 
-  const handleEmailIncomeDetails = () => {
-    console.log("Email income details");
-  }
+  // email send logic
+
+
+  const handleEmailIncomeDetails = async () => {
+    try {
+      const response = await axiosConfig.get(API_ENDPOINTS.INCOME_EMAIL);
+
+      if (response.status === 200) {
+        toast.success("Income report emailed successfully ");
+      } else {
+        toast.error("Failed to send income email");
+      }
+    } catch (error) {
+      console.error("Error sending income email:", error);
+      toast.error("Error sending income email");
+    }
+  };
+
 
   useEffect(() => {
     fetchIncomeDetails();

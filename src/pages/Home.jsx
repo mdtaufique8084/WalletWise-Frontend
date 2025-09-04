@@ -15,7 +15,7 @@ import {
 // ✅ Inline Card Components
 const Card = ({ children, className = "" }) => (
   <div
-    className={`bg-white border border-gray-200 rounded-2xl shadow-sm ${className}`}
+    className={`bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition ${className}`}
   >
     {children}
   </div>
@@ -54,7 +54,7 @@ const Home = () => {
         console.error("Error loading dashboard:", error);
         toast.error(
           error.response?.data?.message ||
-          "Failed to load dashboard. Please try again."
+            "⚠️ Failed to load dashboard. Please try again."
         );
       } finally {
         setLoading(false);
@@ -133,11 +133,7 @@ const Home = () => {
                           className="flex justify-between items-center py-3 hover:bg-green-50 transition rounded-lg px-2"
                         >
                           <div className="flex items-center gap-3">
-                            <img
-                              src={income.icon}
-                              alt={income.name}
-                              className="w-8 h-8"
-                            />
+                            <span className="text-xl">💰</span>
                             <div>
                               <p className="text-sm font-medium text-gray-800">
                                 {income.name}
@@ -154,9 +150,7 @@ const Home = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">
-                      No incomes found.
-                    </p>
+                    <p className="text-sm text-gray-500">No incomes found.</p>
                   )}
                 </CardContent>
               </Card>
@@ -175,11 +169,7 @@ const Home = () => {
                           className="flex justify-between items-center py-3 hover:bg-red-50 transition rounded-lg px-2"
                         >
                           <div className="flex items-center gap-3">
-                            <img
-                              src={expense.icon}
-                              alt={expense.name}
-                              className="w-8 h-8"
-                            />
+                            <span className="text-xl">💸</span>
                             <div>
                               <p className="text-sm font-medium text-gray-800">
                                 {expense.name}
@@ -196,9 +186,7 @@ const Home = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">
-                      No expenses found.
-                    </p>
+                    <p className="text-sm text-gray-500">No expenses found.</p>
                   )}
                 </CardContent>
               </Card>
@@ -212,7 +200,7 @@ const Home = () => {
                   <CardTitle>Income vs Expense</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={250}>
+                  <ResponsiveContainer width="100%" height={400}>
                     <PieChart>
                       <Pie
                         data={[
@@ -221,24 +209,17 @@ const Home = () => {
                         ]}
                         cx="50%"
                         cy="50%"
-                        outerRadius={80}
+                        outerRadius={140}
                         dataKey="value"
                         label={({ name, percent }) =>
                           `${name} ${(percent * 100).toFixed(0)}%`
                         }
                       >
-                        {[
-                          {
-                            name: "Income",
-                            value: dashboardData.totalIncome,
-                          },
-                          {
-                            name: "Expense",
-                            value: dashboardData.totalExpense,
-                          },
-                        ].map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                        ))}
+                        {[dashboardData.totalIncome, dashboardData.totalExpense].map(
+                          (_, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                          )
+                        )}
                       </Pie>
                       <Tooltip />
                     </PieChart>
@@ -260,11 +241,9 @@ const Home = () => {
                           className="flex justify-between items-center py-3 hover:bg-gray-50 transition rounded-lg px-2"
                         >
                           <div className="flex items-center gap-3">
-                            <img
-                              src={tx.icon}
-                              alt={tx.name}
-                              className="w-8 h-8"
-                            />
+                            <span className="text-xl">
+                              {tx.type === "income" ? "💵" : "🛒"}
+                            </span>
                             <div>
                               <p className="text-sm font-medium text-gray-800">
                                 {tx.name}
@@ -275,10 +254,11 @@ const Home = () => {
                             </div>
                           </div>
                           <p
-                            className={`font-semibold ${tx.type === "income"
+                            className={`font-semibold ${
+                              tx.type === "income"
                                 ? "text-green-600"
                                 : "text-red-600"
-                              }`}
+                            }`}
                           >
                             ₹{tx.amount}
                           </p>
@@ -293,8 +273,6 @@ const Home = () => {
                 </CardContent>
               </Card>
             </div>
-
-
           </>
         )}
       </div>

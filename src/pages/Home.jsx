@@ -15,7 +15,7 @@ import {
 // ✅ Inline Card Components
 const Card = ({ children, className = "" }) => (
   <div
-    className={`bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition ${className}`}
+    className={`bg-white border border-gray-200 rounded-2xl shadow-sm ${className}`}
   >
     {children}
   </div>
@@ -54,7 +54,7 @@ const Home = () => {
         console.error("Error loading dashboard:", error);
         toast.error(
           error.response?.data?.message ||
-            "⚠️ Failed to load dashboard. Please try again."
+          "Failed to load dashboard. Please try again."
         );
       } finally {
         setLoading(false);
@@ -133,7 +133,11 @@ const Home = () => {
                           className="flex justify-between items-center py-3 hover:bg-green-50 transition rounded-lg px-2"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="text-xl">💰</span>
+                            <img
+                              src={income.icon}
+                              alt={income.name}
+                              className="w-8 h-8"
+                            />
                             <div>
                               <p className="text-sm font-medium text-gray-800">
                                 {income.name}
@@ -150,7 +154,9 @@ const Home = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">No incomes found.</p>
+                    <p className="text-sm text-gray-500">
+                      No incomes found.
+                    </p>
                   )}
                 </CardContent>
               </Card>
@@ -169,7 +175,11 @@ const Home = () => {
                           className="flex justify-between items-center py-3 hover:bg-red-50 transition rounded-lg px-2"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="text-xl">💸</span>
+                            <img
+                              src={expense.icon}
+                              alt={expense.name}
+                              className="w-8 h-8"
+                            />
                             <div>
                               <p className="text-sm font-medium text-gray-800">
                                 {expense.name}
@@ -186,7 +196,9 @@ const Home = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-500">No expenses found.</p>
+                    <p className="text-sm text-gray-500">
+                      No expenses found.
+                    </p>
                   )}
                 </CardContent>
               </Card>
@@ -227,6 +239,7 @@ const Home = () => {
                 </CardContent>
               </Card>
 
+
               {/* Recent Transactions */}
               <Card>
                 <CardHeader>
@@ -241,9 +254,11 @@ const Home = () => {
                           className="flex justify-between items-center py-3 hover:bg-gray-50 transition rounded-lg px-2"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="text-xl">
-                              {tx.type === "income" ? "💵" : "🛒"}
-                            </span>
+                            <img
+                              src={tx.icon}
+                              alt={tx.name}
+                              className="w-8 h-8"
+                            />
                             <div>
                               <p className="text-sm font-medium text-gray-800">
                                 {tx.name}
@@ -254,11 +269,10 @@ const Home = () => {
                             </div>
                           </div>
                           <p
-                            className={`font-semibold ${
-                              tx.type === "income"
-                                ? "text-green-600"
-                                : "text-red-600"
-                            }`}
+                            className={`font-semibold ${tx.type === "income"
+                              ? "text-green-600"
+                              : "text-red-600"
+                              }`}
                           >
                             ₹{tx.amount}
                           </p>
@@ -273,6 +287,8 @@ const Home = () => {
                 </CardContent>
               </Card>
             </div>
+
+
           </>
         )}
       </div>

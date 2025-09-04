@@ -21,5 +21,7 @@ export const API_ENDPOINTS={
     UPDATE_EXPENSE:(id)=>`expense/updateExpense/${id}`,
     EXPENSE_DOWNLOAD:`excel/expenses`,
     EXPENSE_EMAIL:`email/expense-excel`,
-    ADD_CATEGORY:`/category/addCategory`
+    ADD_CATEGORY:`/category/addCategory`,
+    APPLY_FILTERS:`/filter`,
+    DASHBOARD_DATA:`/dashboard/data`
 }

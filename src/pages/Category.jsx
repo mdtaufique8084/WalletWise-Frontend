@@ -166,15 +166,14 @@ const Category = () => {
       <div className="my-8 mx-auto max-w-6xl px-4 overflow-hidden">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 tracking-tight">
+          <h1 className="text-2xl font-bold text-gray-800">
             All Categories
-          </h2>
+          </h1>
           <button
             onClick={() => setAddOpenCategoryModel(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
           >
-            <Plus size={18} />
-            Add Category
+           + Add Category
           </button>
         </div>
 

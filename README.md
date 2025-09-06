@@ -1,12 +1,56 @@
-# React + Vite
+💰 WalletWise – Income & Expense Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+WalletWise is a full-stack Income & Expense Tracker that helps you stay on top of your personal finances. With a clean React frontend, a robust Spring Boot backend, MySQL database, and Brevo email integration, WalletWise makes it easy to log, categorize, and analyze your transactions — while also sending helpful email notifications.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
 
-## Expanding the ESLint configuration
+📊 Track Income & Expenses – Add, edit, delete, and view transactions.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🏷 Categories – Organize transactions with meaningful categories.
+
+📅 Date Filters – View transactions by day, month, or year.
+
+📈 Analytics – Visual charts to understand spending & savings trends.
+
+🔐 Authentication – Secure login with JWT-based authentication.
+
+📧 Email Notifications – Get alerts or summaries via Brevo.
+
+💾 Persistent Storage – All data stored in MySQL.
+
+
+
+🛠 Tech Stack
+
+Frontend: React + Tailwind CSS (or any UI framework you used)
+
+Backend: Spring Boot (Java)
+
+Database: MySQL
+
+Authentication: JWT (JSON Web Token)
+
+Email Service: Brevo (Sendinblue)
+
+
+
+
+
+🚀 Getting Started
+Prerequisites
+
+Make sure you have the following installed:
+
+Node.js & npm (for frontend)
+
+Java 17+ & Maven/Gradle (for backend)
+
+MySQL server running locally or remotely
+
+
+
+git clone https://github.com/mdtaufique8084/WalletWise-Frontend.git
+cd walletwise-Frontend
+npm install
+npm start
